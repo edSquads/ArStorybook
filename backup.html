@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Alex's Enchanted Quest</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <style>
+      .storybook {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        background-color: white;
+        padding: 10px;
+        border: 2px solid black;
+        width: 30%;
+      }
+    </style>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs>
+      <!-- Assets -->
+      <a-assets>
+        <!-- <a-asset-item id="child-model" src="./models/child.gltf"></a-asset-item> -->
+        <a-asset-item id="forest-model" src="./models/forest/scene.gltf"></a-asset-item>
+        <a-asset-item id="map-model" src="./models/pirates_map/scene.gltf"></a-asset-item>
+        <a-asset-item id="hollow-tree-model" src="./models/oak/scene.gltf"></a-asset-item>
+        <a-asset-item id="treasure-chest-model" src="./models/treasure_chest/scene.gltf"></a-asset-item>
+        <!-- <a-asset-item id="oak-tree-model" src="./models/oak_tree.gltf"></a-asset-item> -->
+        <a-asset-item id="castle-model" src="./models/castle/scene.gltf"></a-asset-item>
+        <!-- <a-asset-item id="creatures-model" src="./models/magical_creatures.gltf"></a-asset-item> -->
+        <a-asset-item id="king-model" src="./models/king/scene.gltf"></a-asset-item>
+        <!-- <a-asset-item id="amulet-model" src="./models/amulet.gltf"></a-asset-item> -->
+      </a-assets>
+
+      <!-- Scene 1: The Magical Forest -->
+      <a-marker preset="custom" type="pattern" url="markers/pattern-forest.patt">
+        <a-entity gltf-model="#child-model" scale="0.5 0.5 0.5" position="0 0 0"></a-entity>
+        <a-entity gltf-model="#forest-model" scale="0.05 0.05 0.05" position="0 -1 0"></a-entity>
+      </a-marker>
+
+      <!-- Scene 2: The Mysterious Map -->
+      <a-marker preset="custom" type="pattern" url="./markers/pattern-map.patt">
+        <a-entity gltf-model="#map-model" scale="0.5 0.5 0.5" position="0 0 0"></a-entity>
+        <a-entity gltf-model="#hollow-tree-model" scale="0.05 0.05 0.05" position="0 -1 0"></a-entity>
+      </a-marker>
+
+      <!-- Scene 3: The Hidden Treasure -->
+      <a-marker preset="custom" type="pattern" url="./markers/pattern-treasure.patt">
+        <a-entity gltf-model="#treasure-chest-model" scale="0.5 0.5 0.5" position="0 0 0"></a-entity>
+        <a-entity gltf-model="#oak-tree-model" scale="0.05 0.05 0.05" position="0 -1 0"></a-entity>
+      </a-marker>
+
+      <!-- Scene 4: The Enchanted Castle -->
+      <a-marker preset="custom" type="pattern" url="./markers/pattern-castle.patt">
+        <a-entity gltf-model="#castle-model" scale="0.05 0.05 0.05" position="0 -1 0"></a-entity>
+        <a-entity gltf-model="#creatures-model" scale="0.1 0.1 0.1" position="0 0 0"></a-entity>
+      </a-marker>
+
+      <!-- Scene 5: The Child's Reward -->
+      <a-marker preset="custom" type="pattern" url="./markers/pattern-king.patt">
+        <a-entity gltf-model="#king-model" scale="0.5 0.5 0.5" position="0 0 0"></a-entity>
+        <a-entity gltf-model="#amulet-model" scale="0.1 0.1 0.1" position="0 0.5 0"></a-entity>
+      </a-marker>
+
+      <!-- Camera -->
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- Story Text -->
+    <div class="storybook" id="story-text">
+      <h2>Alex's Enchanted Quest</h2>
+      <p id="scene-text">Once upon a time, a curious child named Alex loved to explore the enchanted woods and discover new wonders.</p>
+    </div>
+
+    <script>
+      const storyTexts = [
+        "Once upon a time, a curious child named Alex loved to explore the enchanted woods and discover new wonders.",
+        "One sunny day, Alex stumbled upon an ancient, glowing map hidden inside a hollow tree. The map promised to lead to a secret kingdom filled with treasures.",
+        "Following the map, Alex discovered a hidden treasure chest buried under a large oak tree. Alex could hardly contain the excitement as the chest was opened.",
+        "The map led Alex to a grand, enchanted castle. The castle was surrounded by magical creatures and sparkling lights. Alex knew the secret kingdom had been found.",
+        "In the heart of the castle, Alex met the wise old king who rewarded the bravery with a magical amulet. Alex felt a sense of joy and adventure as they returned home, ready for more magical explorations."
+      ];
+
+      let currentScene = 0;
+
+      function updateStoryText() {
+        document.getElementById('scene-text').innerText = storyTexts[currentScene];
+      }
+
+      document.querySelector('a-scene').addEventListener('markerFound', (e) => {
+        const markerId = e.target.getAttribute('url').split('/').pop().split('-')[0];
+        const scenes = ['forest', 'map', 'treasure', 'castle', 'king'];
+        currentScene = scenes.indexOf(markerId);
+        updateStoryText();
+      });
+    </script>
+  </body>
+</html>
