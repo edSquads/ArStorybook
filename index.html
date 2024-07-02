@@ -45,6 +45,7 @@
         <a-entity camera></a-entity>
     </a-scene>
     <script>
+        // Register log component to log marker URLs
         AFRAME.registerComponent('log', {
             schema: {type: 'string'},
             init: function () {
@@ -52,9 +53,28 @@
             }
         });
 
+        // Log each marker URL to verify they are loaded
         document.querySelectorAll('a-marker').forEach(marker => {
             marker.setAttribute('log', `Marker URL: ${marker.getAttribute('url')}`);
         });
+
+        // Request camera permission on iOS
+        function requestCameraPermission() {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                    // Camera permission granted
+                }).catch(function(err) {
+                    console.log("Camera permission denied:", err);
+                });
+            } else {
+                console.log("Camera API not supported.");
+            }
+        }
+
+        // Call the function on load
+        window.onload = function() {
+            requestCameraPermission();
+        };
     </script>
 </body>
 </html>
