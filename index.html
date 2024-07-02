@@ -1,56 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Storybook</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body style="margin: 0; overflow: hidden;">
-    <a-scene
-        embedded
-        arjs="sourceType: webcam; debugUIEnabled: false;"
-        renderer="logarithmicDepthBuffer: true;"
-        vr-mode-ui="enabled: false;">
-
-        <!-- Marker -->
-
-
-        <a-marker type="pattern" url="markers/forest.patt">
-            <!-- <a-entity gltf-model="url(models/child/scene.gltf)" scale="0.5 0.5 0.5" position="0 0 0"></a-entity> -->
-            <a-entity gltf-model="url(models/forest/scene.gltf)" scale="0.5 0.5 0.5" position="0 -1 0"></a-entity>
-        </a-marker>
-
-        <a-marker type="pattern" url="markers/pattern-oak.patt">
-            <a-entity gltf-model="url(models/oak/scene.gltf)" scale="0.1 0.1 0.1" position="0 -1 0"></a-entity>
-            <a-entity gltf-model="url(models/pirates_map/scene.gltf)" scale="2 2 2" position="0 0 0"></a-entity>
-        </a-marker>
-
-        <a-marker type="pattern" url="markers/pattern-treasure.patt">
-            <a-entity gltf-model="url(models/treasure_chest/scene.gltf)" scale="0.5 0.5 0.5" position="0 0 0"></a-entity>
-            <a-entity gltf-model="url(models/pirates_map/scene.gltf)" scale="2 2 2" position="0 0 0"></a-entity>
-            <!-- <a-text value="Following the map, Alex discovered a hidden treasure chest buried under a large oak tree. Alex could hardly contain the excitement as the chest was opened."
-                    position="0 1 -3" rotation="-90 0 0" width="5" color="black"></a-text> -->
-        </a-marker>
-
-        <a-marker type="pattern" url="markers/pattern-castle.patt">
-            <a-entity gltf-model="url(models/castle/scene.gltf)" scale="0.5 0.5 0.5" position="0 -1 0"></a-entity>
-            <!-- <a-entity gltf-model="url(models/magical_creatures/scene.gltf)" scale="0.1 0.1 0.1" position="0 0 0"></a-entity> -->
-        </a-marker>
-
-        <a-marker type="pattern" url="markers/pattern-king.patt">
-            <a-entity gltf-model="url(models/king/scene.gltf)" scale="0.5 0.5 0.5" position="0 -1 0" rotation="0 180 0" ></a-entity>
-            <!-- <a-entity gltf-model="url(models/magical_creatures/scene.gltf)" scale="0.1 0.1 0.1" position="0 0 0"></a-entity> -->
-        </a-marker>
-
-
-      
-
-
-        <!-- Camera -->
-        <a-entity camera></a-entity>
-    </a-scene>
+<!-- AR.js by @jerome_etienne - github: https://github.com/jeromeetienne/ar.js - info: https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf -->
+<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
+<body style='margin : 0px; overflow: hidden;'>
+	<a-scene embedded arjs='sourceType: webcam;'>
+		<a-box position='0 0.5 0' material='opacity: 0.5;'></a-box>
+		<a-marker-camera preset='hiro'></a-marker-camera>
+	</a-scene>
 </body>
-</html>
