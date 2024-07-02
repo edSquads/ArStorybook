@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR Storybook</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body style="margin: 0; overflow: hidden;">
@@ -44,5 +44,17 @@
         <!-- Camera -->
         <a-entity camera></a-entity>
     </a-scene>
+    <script>
+        AFRAME.registerComponent('log', {
+            schema: {type: 'string'},
+            init: function () {
+                console.log(this.data);
+            }
+        });
+
+        document.querySelectorAll('a-marker').forEach(marker => {
+            marker.setAttribute('log', `Marker URL: ${marker.getAttribute('url')}`);
+        });
+    </script>
 </body>
 </html>
