@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR.js Example</title>
+    <title>AR Storybook</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body style="margin: 0; overflow: hidden;">
-
- <a-scene
+    <a-scene
         embedded
         arjs="sourceType: webcam; debugUIEnabled: false;"
         renderer="logarithmicDepthBuffer: true;"
@@ -23,10 +23,35 @@
         <!-- Camera -->
         <a-entity camera></a-entity>
     </a-scene>
+    <script>
+        // Register log component to log marker URLs
+        AFRAME.registerComponent('log', {
+            schema: {type: 'string'},
+            init: function () {
+                console.log(this.data);
+            }
+        });
+
+        // Log each marker URL to verify they are loaded
+        document.querySelector('a-marker').setAttribute('log', `Marker URL: ${document.querySelector('a-marker').getAttribute('url')}`);
+
+        // Request camera permission on iOS
+        function requestCameraPermission() {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                    // Camera permission granted
+                }).catch(function(err) {
+                    console.log("Camera permission denied:", err);
+                });
+            } else {
+                console.log("Camera API not supported.");
+            }
+        }
+
+        // Call the function on load
+        window.onload = function() {
+            requestCameraPermission();
+        };
+    </script>
 </body>
 </html>
-
-
-
-
-
