@@ -3,78 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Storybook</title>
+    <title>AR.js Example</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene
+
+ <a-scene
         embedded
         arjs="sourceType: webcam; debugUIEnabled: false;"
         renderer="logarithmicDepthBuffer: true;"
         vr-mode-ui="enabled: false;">
-        <!-- Marker for Forest -->
-        <a-marker type="pattern" url="markers/forest.patt">
-            <a-entity gltf-model="url(models/forest/scene.gltf)" scale="0.5 0.5 0.5" position="0 -1 0"></a-entity>
-        </a-marker>
-
-        <!-- Marker for Oak -->
+        
+        <!-- Marker for Oak (Simplified) -->
         <a-marker type="pattern" url="markers/pattern-oak.patt">
             <a-entity gltf-model="url(models/oak/scene.gltf)" scale="0.1 0.1 0.1" position="0 -1 0"></a-entity>
-            <a-entity gltf-model="url(models/pirates_map/scene.gltf)" scale="2 2 2" position="0 0 0"></a-entity>
-        </a-marker>
-
-        <!-- Marker for Treasure -->
-        <a-marker type="pattern" url="markers/pattern-treasure.patt">
-            <a-entity gltf-model="url(models/treasure_chest/scene.gltf)" scale="0.5 0.5 0.5" position="0 0 0"></a-entity>
-            <a-entity gltf-model="url(models/pirates_map/scene.gltf)" scale="2 2 2" position="0 0 0"></a-entity>
-        </a-marker>
-
-        <!-- Marker for Castle -->
-        <a-marker type="pattern" url="markers/pattern-castle.patt">
-            <a-entity gltf-model="url(models/castle/scene.gltf)" scale="0.5 0.5 0.5" position="0 -1 0"></a-entity>
-        </a-marker>
-
-        <!-- Marker for King -->
-        <a-marker type="pattern" url="markers/pattern-king.patt">
-            <a-entity gltf-model="url(models/king/scene.gltf)" scale="0.5 0.5 0.5" position="0 -1 0" rotation="0 180 0"></a-entity>
         </a-marker>
 
         <!-- Camera -->
         <a-entity camera></a-entity>
     </a-scene>
-    <script>
-        // Register log component to log marker URLs
-        AFRAME.registerComponent('log', {
-            schema: {type: 'string'},
-            init: function () {
-                console.log(this.data);
-            }
-        });
-
-        // Log each marker URL to verify they are loaded
-        document.querySelectorAll('a-marker').forEach(marker => {
-            marker.setAttribute('log', `Marker URL: ${marker.getAttribute('url')}`);
-        });
-
-        // Request camera permission on iOS
-        function requestCameraPermission() {
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-                    // Camera permission granted
-                }).catch(function(err) {
-                    console.log("Camera permission denied:", err);
-                });
-            } else {
-                console.log("Camera API not supported.");
-            }
-        }
-
-        // Call the function on load
-        window.onload = function() {
-            requestCameraPermission();
-        };
-    </script>
 </body>
 </html>
+
+
+
+
+
